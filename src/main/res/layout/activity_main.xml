@@ -1,0 +1,54 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/where_to_sit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Where do you want to sit?"
+        android:textColor="#00008B"
+        android:textSize="20sp"
+        android:translationX="20dp" />
+
+    <TextView
+        android:id="@+id/number_of_seats_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/where_to_sit"
+        android:layout_marginLeft="20dp"
+        android:text="How many seats do you need?"
+        android:textSize="18sp"
+        android:translationX="20dp" />
+
+    <EditText
+        android:id="@+id/seat_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number_of_seats_prompt"
+        android:layout_marginLeft="20dp"
+        android:hint="Enter number of seats"
+        android:inputType="number"
+        android:maxLength="1"
+        android:translationX="20dp" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/seat_input"/>
+
+    <ImageView
+        android:id="@+id/waiter_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/submit_button"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/waiter"
+        android:translationY="50px" />
+</RelativeLayout>
