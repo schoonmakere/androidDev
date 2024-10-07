@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private String mLightOnText;
 
     private String mLightOffText;
+    private final String GAME_STATE = "gameState";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +44,15 @@ public class MainActivity extends AppCompatActivity {
         mLightOffText = ContextCompat.getString(this, R.string.off);
 
         mGame = new LightsOutGame();
-        startGame();
+
+        if (savedInstanceState == null) {
+            startGame();
+        }
+        else {
+            String gameState = savedInstanceState.getString(GAME_STATE);
+            mGame.setState(gameState);
+            setButtonColors();
+        }
     }
 
     private void startGame() {
@@ -87,5 +99,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNewGameClick(View view) {
         startGame();
+    }
+
+    //save state for transition between portrait and lanscape
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(GAME_STATE, mGame.getState());
     }
 }
