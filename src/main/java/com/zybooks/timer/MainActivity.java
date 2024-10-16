@@ -9,6 +9,11 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
@@ -120,7 +125,22 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.INVISIBLE);
         timerCompleted();
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+        // Start the Worker if the timer is running
+        if (mTimerModel.isRunning()) {
+            WorkRequest timerWorkRequest = new OneTimeWorkRequest.Builder(TimerWorker.class)
+                    .setInputData(new Data.Builder()
+                            .putLong(TimerWorker.KEY_MILLISECONDS_REMAINING,
+                                    mTimerModel.getRemainingMilliseconds())
+                            .build()
+                    ).build();
+
+            WorkManager.getInstance(this).enqueue(timerWorkRequest);
+        }
+    }
     private void timerCompleted() {
         mTimerModel.stop();
 
